@@ -1,1 +1,11 @@
-@import url('@/style/normalize.css')
+@import url('/style/reset.css');
+@import url('/style/font/roboto.css');
+
+body {
+ font-family: 'Roboto Medium';
+ font-size: 20px;
+}
+
+button, input {
+ font-family: 'Roboto Medium';
+}

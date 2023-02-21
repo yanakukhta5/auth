@@ -1,10 +1,14 @@
-import { useState } from 'react'
-import './App.css'
+import { useAuth } from '@/hooks/useAuth'
+import { Header } from '@/app/Header'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return <div className="App"></div>
+  const auth = useAuth()
+  auth.authUser()
+  return (
+    <div className="App">
+      <Header></Header>
+    </div>
+  )
 }
 
 export default App

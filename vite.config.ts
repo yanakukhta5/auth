@@ -13,12 +13,11 @@ export default defineConfig({
     port: 1234,
     strictPort: false,
     proxy: {
-      '/auth': {
-        target: 'https://test.gnzs.ru/oauth/get-token.php',
+      '/api': {
+        target: 'https://test-assignment.emphasoft.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/auth/, ''),
+        rewrite: (path) => path.replace(/^\/api/, ''),
         headers: {
-          'X-Client-Id': '30878566',
           'Content-Type': 'application/json'
         }
       }
