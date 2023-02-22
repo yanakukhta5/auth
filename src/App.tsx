@@ -6,14 +6,21 @@ import { Footer } from './app/Footer'
 
 import { Auth } from '@/pages/Auth'
 import { Container } from '@/components/Container'
+import styled from '@emotion/styled'
+
+const Content = styled.main`
+  flex: 1 1 auto;
+`
 
 function App() {
   return (
     <>
       <Header />
-      <Container>
-        <Auth />
-      </Container>
+      <Content>
+        <Container>
+          <Auth />
+        </Container>
+      </Content>
       <Footer />
     </>
   )

@@ -1,15 +1,9 @@
-import { Footer as Footer_ } from "./style"
-import { Container } from "@/components/Container"
-import { Row } from "@/components/Row"
+import { Footer as Footer_, Copyright } from './style'
 
 export function Footer() {
   return (
-   <Footer_>
-    <Container>
-     <Row>
-      
-     </Row>
-    </Container>
-   </Footer_>
+    <Footer_>
+      <Copyright>Выполенение тестрового задания от Emphasoft</Copyright>
+    </Footer_>
   )
 }
