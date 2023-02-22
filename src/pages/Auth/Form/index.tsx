@@ -1,41 +1,44 @@
+import { useAuth } from '@/hooks/useAuth';
 import { useForm } from 'react-hook-form'
 
 import { Submit, Form as Form_, Input, Label, Output } from './style'
-
-type FormValues = {
-  name: string;
-  password: string;
-}
+import  { User } from '@/store/auth'
 
 export function Form() {
   const {
     register,
     formState: { errors },
     handleSubmit, reset
-  } = useForm<FormValues>({
+  } = useForm<User>({
    mode: "onBlur"
   })
 
-  function onFormSubmit(data: FormValues){
+  const auth = useAuth()
+
+  function onFormSubmit(data: User){
    reset({
-    name:'',
+    username:'',
     password: ''
   })
-   console.log(data)
+   console.log(auth.authorized)
+   auth.authUser(data)
   }
 
   return (
    <Form_ onSubmit={handleSubmit(onFormSubmit)} >
     <Label>
      Имя пользователя: 
-     <Input {...register('name', {
+     <Input {...register('username', {
       required: "Введите имя",
       minLength: {
        value: 3,
        message: "Имя пользователя не может состоять менее чем из 3 символов"
       },
-     })} placeholder="Username" />
-     <Output>{errors?.name?.message as string}</Output>
+     })}
+     placeholder="Username" 
+     value='test_super'
+      />
+     <Output>{errors?.username?.message as string}</Output>
     </Label>
 
 
@@ -51,7 +54,10 @@ export function Form() {
         value: /^[^а-яё]+$/iu,
         message: "Невалидный пароль"
       }
-     })} placeholder="Password" />
+     })}
+     placeholder="Password"
+     value='Nf<U4f<rDbtDxAPn'     
+     />
      <Output>{errors?.password?.message as string}</Output>
     </Label>
 
