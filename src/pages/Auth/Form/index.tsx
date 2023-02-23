@@ -1,67 +1,80 @@
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth'
 import { useForm } from 'react-hook-form'
 
 import { Submit, Form as Form_, Input, Label, Output } from './style'
-import  { User } from '@/services/auth'
+import { User } from '@/services/auth'
 
 export function Form() {
   const {
     register,
     formState: { errors },
-    handleSubmit, reset
+    handleSubmit,
+    reset
   } = useForm<User>({
-   mode: "onBlur"
+    mode: 'onBlur'
   })
 
   const auth = useAuth()
 
-  function onFormSubmit(data: User){
+  function onFormSubmit(data: User) {
     reset({
-      username:'',
+      username: '',
       password: ''
     })
     auth.authUser(data)
   }
 
   return (
-   <Form_ onSubmit={handleSubmit(onFormSubmit)} >
-    <Label>
-     Имя пользователя: 
-     <Input {...register('username', {
-      required: "Введите имя",
-      minLength: {
-       value: 3,
-       message: "Имя пользователя не может состоять менее чем из 3 символов"
-      },
-     })}
-     placeholder="Username" 
-    // value={localStorage.getItem('username') || ''}
-     value={localStorage.getItem('username') || 'test_super'}
-      />
-     <Output>{errors?.username?.message as string}</Output>
-    </Label>
+    <Form_ onSubmit={handleSubmit(onFormSubmit)}>
+      <Label>
+        Имя пользователя:
+        <Input
+          {...register('username', {
+            required: 'Введите имя',
+            minLength: {
+              value: 3,
+              message:
+                'Имя пользователя не может состоять менее чем из 3 символов'
+            }
+          })}
+          placeholder="Username"
+          // value={localStorage.getItem('username') || ''}
+          value={localStorage.getItem('username') || 'test_super'}
+        />
+        <Output>{errors?.username?.message as string}</Output>
+      </Label>
 
+      <Label>
+        Пароль:
+        <Input
+          {...register('password', {
+            required: 'Введите пароль',
+            minLength: {
+              value: 3,
+              message: 'Пароль не может состоять менее чем из 8 символов'
+            },
+            pattern: {
+              value: /^[^а-яё]+$/iu,
+              message: 'Невалидный пароль'
+            },
+            validate: {
+              withNumbers: (value) => {
+                if ( !Boolean( value.split('').find((item) => item.match(/^[0-9]+$/)) ) )
+                  return 'В пароле должны быть цифры'
+              },
+              withCapital: (value) => {
+                if( !Boolean( value.split('').find((item) => item.match(/[A-Z]/)) ) )
+                  return 'В пароле должны быть заглавные буквы'
+              }
+            }
+          })}
+          placeholder="Password"
+          value='Nf<U4f<rDbtDxAPn'
+        />
+        <Output>{errors?.password?.message as string}</Output>
+      </Label>
 
-    <Label>
-     Пароль: 
-     <Input {...register('password', {
-      required: "Введите пароль",
-      minLength: {
-       value: 3,
-       message: "Пароль не может состоять менее чем из 6 символов",
-      },
-      pattern: {
-        value: /^[^а-яё]+$/iu,
-        message: "Невалидный пароль"
-      }
-     })}
-     placeholder="Password"
-     value='Nf<U4f<rDbtDxAPn'     
-     />
-     <Output>{errors?.password?.message as string}</Output>
-    </Label>
-
-    <Submit variant='primary' value="Отправить" type="submit"/>
-   </Form_>
+      <Submit variant="primary" value="Отправить" type="submit" />
+    </Form_>
   )
 }
