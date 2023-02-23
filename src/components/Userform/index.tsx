@@ -1,27 +1,30 @@
+import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Submit, Form as Form_, Input, Label, Output } from './style'
-import { User } from '@/services/types'
+import { Submit, Form as Form_ } from './style'
+import { Input } from '@/components/Input'
+import { Output } from '@/components/Output'
+import { Label } from '@/components/Label'
+import { IUser, IAuth } from '@/services/types'
 
 export function Userform(props: {
-  handler: (data: User) => void
-  mode: 'auth' | 'create' | 'edit'
-  value?: string
+  handler: (data: IUser) => void
+  value?: string,
+  children?: React.ReactNode
 }) {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset
-  } = useForm<User>({
+  } = useForm<IUser>({
     mode: 'onBlur'
   })
 
-  function onFormSubmit(data: User) {
+  function onFormSubmit(data: IUser) {
     reset({
       username: '',
-      password: '',
-      id: undefined
+      password: ''
     })
     props.handler(data)
   }
@@ -29,25 +32,24 @@ export function Userform(props: {
   return (
     <Form_ onSubmit={handleSubmit(onFormSubmit)}>
       <>
-        <Label>
-          Имя пользователя:
+        <Label htmlFor="username">
           <Input
             {...register('username', {
-              required: 'Введите имя',
+              required: 'Введите юзернейм',
               minLength: {
                 value: 2,
                 message:
                   'Имя пользователя не может состоять менее чем из 2 символов'
               }
             })}
-            placeholder="Имя пользователя"
-            value={props.value ? props.value : ''}
+            id="username"
+            placeholder="Юзернейм пользователя"
+            value={props.value ? props.value : undefined}
           />
           <Output>{errors?.username?.message as string}</Output>
         </Label>
 
-        <Label>
-          Пароль:
+        <Label htmlFor="password">
           <Input
             {...register('password', {
               required: 'Введите пароль',
@@ -61,37 +63,22 @@ export function Userform(props: {
               },
               validate: {
                 withNumbers: (value) => {
-                  if (
-                    !Boolean(
-                      value.split('').find((item) => item.match(/^[0-9]+$/))
-                    )
-                  )
+                  if ( !Boolean( value.split('').find((item) => item.match(/^[0-9]+$/)) ) )
                     return 'В пароле должны быть цифры'
                 },
                 withCapital: (value) => {
-                  if (
-                    !Boolean(
-                      value.split('').find((item) => item.match(/[A-Z]/))
-                    )
-                  )
+                  if ( !Boolean( value.split('').find((item) => item.match(/[A-Z]/)) ) )
                     return 'В пароле должны быть заглавные буквы'
                 }
               }
             })}
-            placeholder="Пароль"
+            id='password'
+            placeholder="Пароль пользователя"
           />
           <Output>{errors?.password?.message as string}</Output>
         </Label>
 
-        { props.mode === 'edit' ? <><Input {...register('id', {
-          required: 'Введите id пользователя',
-          min: {
-            value: 1,
-            message: 'Идентификатор пользователя не может быть меньше 1'
-          }
-        })} placeholder="Идентификатор пользователя" type="number" />
-        <Output>{errors?.id?.message as string}</Output>
-        </> : '' }
+        { props.children }
 
         <Submit variant="primary" value="Отправить" type="submit" />
       </>

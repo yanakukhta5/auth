@@ -1,10 +1,4 @@
-export interface IUser {
- username: string,
- password: string,
- is_active: boolean,
- first_name: string,
- last_name: string,
-}
+import {IUser} from './types'
  
 class Users {
  async getUsers(){
