@@ -9,6 +9,15 @@ import { useAuth } from '@/hooks/useAuth'
 
 export const Header = observer(() => {
   const auth = useAuth()
+
+  function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    if(auth.authorized) auth.exitUser()
+    else auth.authUser({
+      username: localStorage.getItem('username') || prompt('Введите юзернейм', '') || '',
+      password: prompt('Введите пароль', '') || ''
+    })
+  }
+
   return (
     <Header_>
       <Container>
@@ -21,7 +30,9 @@ export const Header = observer(() => {
             <Link>Link</Link>
             <Link>Link</Link>
           </Links>
-          <Button variant="primary">{auth.authorized ? "Выйти" : "Войти"}</Button>
+          <Button onClick={handleClick} variant="primary">
+            {auth.authorized ? 'Выйти' : 'Войти'}
+          </Button>
         </Row>
       </Container>
     </Header_>

@@ -1,43 +1,37 @@
-import {
-  makeAutoObservable,
-  autorun,
-  runInAction
-} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-export interface User {
-  username: string,
-  password: string
-}
+import { auth as authService, User } from '@/services/auth'
 
 class Auth {
   token: string | null = localStorage.getItem('token')
+  username: string | null = localStorage.getItem('username')
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  get authorized(){
-   return Boolean(this.token)
+  get authorized() {
+    return Boolean(this.token)
   }
 
   async authUser(obj: User) {
-    const response = await fetch(
-      'https://test-assignment.emphasoft.com/api/v1/login/', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(obj)
-      }
-    )
-    const parsed = await response.json()
-
+    const parsed = await authService.login(obj)
     runInAction(() => {
       this.token = parsed.token
-      if(this.token){
+      if (this.token) {
+        this.username = obj.username
         localStorage.setItem('token', this.token)
+        localStorage.setItem('username', obj.username)
         alert('Вы успешно авторизовались')
       }
+    })
+  }
+
+  exitUser() {
+    runInAction(() => {
+      this.token = ''
+      localStorage.removeItem('token')
+      alert('Вы вышли из сервиса')
     })
   }
 }

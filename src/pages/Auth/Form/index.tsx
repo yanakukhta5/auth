@@ -2,7 +2,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useForm } from 'react-hook-form'
 
 import { Submit, Form as Form_, Input, Label, Output } from './style'
-import  { User } from '@/store/auth'
+import  { User } from '@/services/auth'
 
 export function Form() {
   const {
@@ -16,12 +16,11 @@ export function Form() {
   const auth = useAuth()
 
   function onFormSubmit(data: User){
-   reset({
-    username:'',
-    password: ''
-  })
-   console.log(auth.authorized)
-   auth.authUser(data)
+    reset({
+      username:'',
+      password: ''
+    })
+    auth.authUser(data)
   }
 
   return (
@@ -36,7 +35,8 @@ export function Form() {
       },
      })}
      placeholder="Username" 
-     value='test_super'
+    // value={localStorage.getItem('username') || ''}
+     value={localStorage.getItem('username') || 'test_super'}
       />
      <Output>{errors?.username?.message as string}</Output>
     </Label>
