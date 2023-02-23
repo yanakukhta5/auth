@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import styled from '@emotion/styled'
 
-import {users} from '@/services/users'
-
 import { Header } from '@/app/Header'
 import { Footer } from './app/Footer'
 

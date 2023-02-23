@@ -1,31 +1,19 @@
-import { useAuth } from '@/hooks/useAuth'
 import { useForm } from 'react-hook-form'
 
 import { Submit, Form as Form_, Input, Label, Output } from './style'
 import { User } from '@/services/auth'
 
-export function Form() {
+export function Userform(props: {handler: (data: User) => void}) {
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset
   } = useForm<User>({
     mode: 'onBlur'
   })
 
-  const auth = useAuth()
-
-  function onFormSubmit(data: User) {
-    reset({
-      username: '',
-      password: ''
-    })
-    auth.authUser(data)
-  }
-
   return (
-    <Form_ onSubmit={handleSubmit(onFormSubmit)}>
+    <Form_ onSubmit={handleSubmit(props.handler)}>
       <Label>
         Имя пользователя:
         <Input
@@ -38,8 +26,7 @@ export function Form() {
             }
           })}
           placeholder="Username"
-          // value={localStorage.getItem('username') || ''}
-          value={localStorage.getItem('username') || 'test_super'}
+          value={localStorage.getItem('username') || ''}
         />
         <Output>{errors?.username?.message as string}</Output>
       </Label>
