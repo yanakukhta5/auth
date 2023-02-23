@@ -1,29 +1,35 @@
-import { useEffect } from 'react'
+import { observer } from 'mobx-react-lite'
+import styled from '@emotion/styled'
 
-import { useAuth } from '@/hooks/useAuth'
+import {users} from '@/services/users'
+
 import { Header } from '@/app/Header'
 import { Footer } from './app/Footer'
 
-import { Auth } from '@/pages/Auth'
 import { Container } from '@/components/Container'
-import styled from '@emotion/styled'
+
+import { Auth } from '@/pages/Auth'
+import { Users } from '@/pages/Users'
+import { useAuth } from './hooks/useAuth'
 
 const Content = styled.main`
   flex: 1 1 auto;
 `
 
-function App() {
+const App = observer(function() {
+  const auth = useAuth()
+
   return (
     <>
       <Header />
       <Content>
         <Container>
-          <Auth />
+          {auth.authorized ? <Users /> : <Auth />}
         </Container>
       </Content>
       <Footer />
     </>
   )
-}
+})
 
 export default App

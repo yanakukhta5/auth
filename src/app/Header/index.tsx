@@ -11,11 +11,7 @@ export const Header = observer(() => {
   const auth = useAuth()
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    if(auth.authorized) auth.exitUser()
-    else auth.authUser({
-      username: localStorage.getItem('username') || prompt('Введите юзернейм', '') || '',
-      password: prompt('Введите пароль', '') || ''
-    })
+    auth.exitUser()
   }
 
   return (
@@ -23,16 +19,7 @@ export const Header = observer(() => {
       <Container>
         <Row>
           <Logo src="/img/logo.svg" />
-          <Links>
-            <Link>Link</Link>
-            <Link>{auth.authorized}</Link>
-            <Link>Link</Link>
-            <Link>Link</Link>
-            <Link>Link</Link>
-          </Links>
-          <Button onClick={handleClick} variant="primary">
-            {auth.authorized ? 'Выйти' : 'Войти'}
-          </Button>
+          {auth.authorized ? <Button onClick={handleClick} variant='primary'>Выйти</Button> : ''}
         </Row>
       </Container>
     </Header_>

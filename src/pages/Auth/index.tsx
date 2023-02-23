@@ -1,6 +1,6 @@
 import { Form } from './Form'
 
-import { Title } from './style'
+import { Title } from '@/components/Title'
 
 export function Auth() {
   return (
