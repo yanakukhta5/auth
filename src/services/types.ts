@@ -4,10 +4,10 @@ export type IAuth = {
 }
 
 type UserCreation = {
- is_active: boolean,
+ is_active: boolean | string,
  first_name: string,
  last_name: string,
- id?: number
+ id?: number | string
 }
 
 export type IUser = IAuth & UserCreation

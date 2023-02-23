@@ -1,7 +1,7 @@
-import { User } from './types'
+import { IAuth } from './types'
 
 class Auth {
- async login(obj: User){
+ async login(obj: IAuth){
   const response = await fetch(
    'https://test-assignment.emphasoft.com/api/v1/login/', {
      method: 'post',

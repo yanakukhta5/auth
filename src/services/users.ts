@@ -11,9 +11,7 @@ class Users {
      }
    }
  )
- const result = await response.json()
- console.log(result)
- return result
+ return await response.json()
  }
 
  async createUser(obj: IUser){
@@ -30,7 +28,7 @@ class Users {
  return await response.json()
  }
 
- async editUser(id: number, obj: IUser){
+ async editUser(obj: IUser, id: number){
   const response = await fetch(
    `https://test-assignment.emphasoft.com/api/v1/users/${id}`, {
      method: 'put',

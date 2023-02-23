@@ -1,6 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { auth as authService, User } from '@/services/auth'
+import { auth as authService } from '@/services/auth'
+
+import { IAuth } from '@/services/types'
 
 class Auth {
   token: string | null = localStorage.getItem('token')
@@ -14,7 +16,7 @@ class Auth {
     return Boolean(this.token)
   }
 
-  async authUser(obj: User) {
+  async authUser(obj: IAuth) {
     const parsed = await authService.login(obj)
     runInAction(() => {
       this.token = parsed.token
