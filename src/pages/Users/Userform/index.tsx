@@ -1,18 +1,22 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Input } from '@/components/Input'
 import { Output } from '@/components/Output'
 import { Label } from '@/components/Label'
-import {Userform as Form, Submit, Select, UserContainer } from './style'
+import { Select } from '@/components/Select'
+import { Userform as Form, Submit, UserContainer } from './style'
 
 import { IUser } from '@/services/types'
 import { users } from '@/services/users'
 
 type Mode = 'create' | 'edit'
 
-export function Userform(){
+type UserFormProps = {
+  setChange: (timestamp: number) => void
+}
 
+export const Userform: React.FC<UserFormProps> = ({setChange}) => {
  const {
   register,
   formState: { errors },
@@ -35,6 +39,7 @@ async function onFormSubmit(data: IUser) {
   if (mode === 'edit') {
     await users.editUser({ ...data, is_active: Boolean(data.is_active) }, data.id as number)
   }
+  setChange(Date.now())
   reset({
     username: '',
     password: '',
@@ -47,8 +52,8 @@ async function onFormSubmit(data: IUser) {
  return (
   <UserContainer>
   <Select onChange={selectHandler}>
-  <option value="create">Создать пользователя</option>
-  <option value="edit">Редактировать пользователя</option>
+    <option value="create">Создать пользователя</option>
+    <option value="edit">Редактировать пользователя</option>
  </Select>
   <Form onSubmit={handleSubmit(onFormSubmit)}>
   {mode === 'edit' ? (

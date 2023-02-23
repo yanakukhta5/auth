@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
- // ${({ variant }) => variants[variant]}
 import { primary, bg, lightest, dark } from '@/variables/colors'
 
 const backgroundColor = {
@@ -11,13 +10,6 @@ const color ={
  primary: lightest,
  secondary: dark
 }
-
-// const variants = {
-//   primary: css`
-//     color: ${({ theme }) => theme.colors.primary};
-//     background-color: #fff;
-//   `
-// }
 
 type ButtonProps = {
   variant: keyof typeof backgroundColor
