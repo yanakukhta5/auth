@@ -1,7 +1,4 @@
-export interface User {
- username: string,
- password: string
-}
+import { User } from './types'
 
 class Auth {
  async login(obj: User){
