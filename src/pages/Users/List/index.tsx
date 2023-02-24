@@ -40,10 +40,7 @@ export const List: React.FC<ListProps> = ({change}) => {
   return (
     <Wrapper>
       <ListTitle>Список пользователей, отсортированный по </ListTitle>
-      <Select onChange={sortPort}>
-        <option value="id">ID</option>
-        <option value="username">юзернейму</option>
-      </Select>
+      <Select onChange={sortPort} options={[{value: 'id', name: "ID"}, {value: 'username', name: "юзернейму"} ]} />
       <WrapperUsers>{ usersArr && usersArr.map(user =>
          <User id={user.id as number} username={user.username} key={user.id} />
          ) }</WrapperUsers>

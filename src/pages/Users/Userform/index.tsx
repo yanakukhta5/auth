@@ -51,10 +51,7 @@ async function onFormSubmit(data: IUser) {
 }
  return (
   <UserContainer>
-  <Select onChange={selectHandler}>
-    <option value="create">Создать пользователя</option>
-    <option value="edit">Редактировать пользователя</option>
- </Select>
+  <Select onChange={selectHandler} options={[{value: 'create', name: 'Создать пользователя' }, { value: 'edit', name: "Редактировать пользователя" }]} />
   <Form onSubmit={handleSubmit(onFormSubmit)}>
   {mode === 'edit' ? (
     <Label htmlFor="id">
