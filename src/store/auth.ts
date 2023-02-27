@@ -26,6 +26,9 @@ class Auth {
         localStorage.setItem('username', obj.username)
         alert('Вы успешно авторизовались')
       }
+      else {
+        alert('Неправильный пароль или логин')
+      }
     })
   }
 

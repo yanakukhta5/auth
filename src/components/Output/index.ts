@@ -6,4 +6,5 @@ export const Output = styled.output`
  text-align: start;
  color: red;
  font-size: 0.7em;
+ margin-bottom: 10px;
 `

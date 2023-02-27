@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Submit, Form as Form_ } from './style'
@@ -10,7 +10,7 @@ import { useAuth } from '@/hooks/useAuth'
 
 export function Form() {
 
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState(localStorage.getItem('username') || '')
 
   const auth = useAuth()
 
@@ -30,10 +30,8 @@ export function Form() {
   function onFormSubmit(data: IAuth) {
     auth.authUser(data)
     reset({
-      username: '',
       password: '',
     })
-    setUsername('')
   }
 
   return (
@@ -50,7 +48,7 @@ export function Form() {
             })}
             id="username"
             placeholder="Юзернейм пользователя"
-            value={localStorage.getItem('username') || username}
+            value={username}
             onChange={handleUsername}
           />
           <Output>{errors?.username?.message as string}</Output>

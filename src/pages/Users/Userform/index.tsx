@@ -5,7 +5,8 @@ import { Input } from '@/components/Input'
 import { Output } from '@/components/Output'
 import { Label } from '@/components/Label'
 import { Select } from '@/components/Select'
-import { Userform as Form, Submit, UserContainer } from './style'
+import { Checkbox } from '@/components/Checkbox'
+import { Userform as Form, Submit, UserContainer, CheckboxLabel } from './style'
 
 import { IUser } from '@/services/types'
 import { users } from '@/services/users'
@@ -33,6 +34,7 @@ function selectHandler(event: React.ChangeEvent<HTMLSelectElement>) {
 }
 
 async function onFormSubmit(data: IUser) {
+  console.log(data)
   if (mode === 'create') {
     await users.createUser({ ...data, is_active: Boolean(data.is_active) })
   }
@@ -51,7 +53,7 @@ async function onFormSubmit(data: IUser) {
 }
  return (
   <UserContainer>
-  <Select onChange={selectHandler} options={[{value: 'create', name: 'Создать пользователя' }, { value: 'edit', name: "Редактировать пользователя" }]} />
+  <Select onChange={selectHandler} options={[{value: 'create', name: 'Создать пользователя' }, { value: 'edit', name: "Редактировать пользователя" }]} value={mode} />
   <Form onSubmit={handleSubmit(onFormSubmit)}>
   {mode === 'edit' ? (
     <Label htmlFor="id">
@@ -149,25 +151,10 @@ async function onFormSubmit(data: IUser) {
     <Output>{errors?.last_name?.message as string}</Output>
   </Label>
 
-  <Label htmlFor="is_active">
-    <Input
-      {...register('is_active', {
-        required: 'Введите сведения об активности пользователя',
-        min: {
-          value: 0,
-          message: 'Активность пользователя не может быть меньше 0'
-        },
-        max: {
-          value: 1,
-          message: 'Активность пользователя не может быть больше 1'
-        }
-      })}
-      id="is_active"
-      placeholder="Активность пользователя"
-      type="number"
-    />
-    <Output>{errors?.is_active?.message as string}</Output>
-  </Label>
+  <CheckboxLabel htmlFor="is_active">
+    Активен ли пользователь?
+    <Checkbox id="is_active" />
+  </CheckboxLabel>
 
   <Submit variant="primary" value="Отправить" type="submit" />
 </Form>
