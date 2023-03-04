@@ -13,5 +13,3 @@ declare module '@emotion/react' {
     }
   }
 }
-
-export {}
