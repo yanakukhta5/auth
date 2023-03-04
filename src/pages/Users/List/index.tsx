@@ -27,7 +27,7 @@ export const List: React.FC<ListProps> = ({ change }) => {
     fetchData()
   }, [change])
 
-   function sortPort(event: React.ChangeEvent<HTMLSelectElement>) {
+  function sortPort(event: React.ChangeEvent<HTMLSelectElement>) {
     const newValue = event.target.value
     setSort(newValue as Sort)
     setUsersArr(

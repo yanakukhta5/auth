@@ -18,6 +18,7 @@ export const UserContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 300px;
+
   @media (max-width: 780px) {
     width: unset;
   }

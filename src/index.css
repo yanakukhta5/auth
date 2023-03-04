@@ -2,16 +2,17 @@
 @import url('/style/font/roboto.css');
 
 body {
- font-family: 'Roboto Medium';
- font-size: 20px;
+  font-family: 'Roboto Medium';
+  font-size: 20px;
 }
 
-button, input {
- font-family: 'Roboto Medium';
+button,
+input {
+  font-family: 'Roboto Medium';
 }
 
 #root {
- display: flex;
- flex-direction: column;
- min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }

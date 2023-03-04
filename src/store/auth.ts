@@ -18,15 +18,16 @@ class Auth {
 
   async authUser(obj: IAuth) {
     const parsed = await authService.login(obj)
+
     runInAction(() => {
       this.token = parsed.token
+
       if (this.token) {
         this.username = obj.username
         localStorage.setItem('token', this.token)
         localStorage.setItem('username', obj.username)
         alert('Вы успешно авторизовались')
-      }
-      else {
+      } else {
         alert('Неправильный пароль или логин')
       }
     })

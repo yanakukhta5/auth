@@ -6,15 +6,14 @@ const backgroundColor = {
   secondary: bg
 }
 
-const color ={
- primary: lightest,
- secondary: dark
+const color = {
+  primary: lightest,
+  secondary: dark
 }
 
 type ButtonProps = {
   variant: keyof typeof backgroundColor
 }
-
 
 export const Button = styled.button<ButtonProps>`
   display: block;
