@@ -3,8 +3,6 @@ import styled from '@emotion/styled'
 import { Button } from '@/components/Button'
 import { Label } from '@/components/Label'
 
-import { secondary } from '@/variables/colors'
-
 export const Userform = styled.form`
   display: flex;
   flex-direction: column;
@@ -28,7 +26,7 @@ export const CheckboxLabel = styled(Label)`
   display: flex;
   gap: 0;
   text-align: start;
-  color: ${secondary};
+  color: ${props => props.theme.colors.secondary};
   font-size: 15px;
   margin-left: 20px;
   flex-direction: row-reverse;

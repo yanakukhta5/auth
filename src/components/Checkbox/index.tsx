@@ -1,8 +1,6 @@
 import styled from '@emotion/styled'
 import React from 'react'
 
-import { primary } from '@/variables/colors'
-
 interface CheckboxProps {
   id?: string
   checked?: boolean
@@ -17,5 +15,4 @@ const Wrapper = React.forwardRef<HTMLInputElement, CheckboxProps>(
 export const Checkbox = styled(Wrapper)`
   width: 10px;
   height: 10px;
-  // background-color: ${primary};
 `
