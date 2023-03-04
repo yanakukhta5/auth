@@ -10,6 +10,8 @@ import { Auth } from '@/pages/Auth'
 import { Users } from '@/pages/Users'
 import { useAuth } from '../hooks/useAuth'
 
+import { ToastContainer } from 'react-toastify'
+
 const Content = styled.main`
   flex: 1 1 auto;
 `
@@ -19,6 +21,7 @@ const App = observer(function () {
 
   return (
     <>
+      <ToastContainer />
       <Header />
 
       <Content>

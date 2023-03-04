@@ -26,9 +26,6 @@ class Auth {
         this.username = obj.username
         localStorage.setItem('token', this.token)
         localStorage.setItem('username', obj.username)
-        alert('Вы успешно авторизовались')
-      } else {
-        alert('Неправильный пароль или логин')
       }
     })
   }
@@ -37,7 +34,6 @@ class Auth {
     runInAction(() => {
       this.token = ''
       localStorage.removeItem('token')
-      alert('Вы вышли из сервиса')
     })
   }
 }

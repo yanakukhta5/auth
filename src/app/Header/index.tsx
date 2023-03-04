@@ -1,4 +1,6 @@
 import { observer } from 'mobx-react-lite'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Header as Header_, Logo } from './style'
 import { Button } from '@/components/Button'
@@ -10,7 +12,8 @@ import { useAuth } from '@/hooks/useAuth'
 export const Header = observer(() => {
   const auth = useAuth()
 
-  function handleClick() {
+  async function handleClick() {
+    await toast.success('Вы вышли из сервиса')
     auth.exitUser()
   }
 
