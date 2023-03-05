@@ -22,6 +22,7 @@ const App = observer(function () {
   return (
     <>
       <ToastContainer />
+
       <Header />
 
       <Content>

@@ -5,6 +5,7 @@ export const Content = styled.section`
   gap: 2em;
   margin: auto;
   justify-content: space-around;
+
   @media (max-width: 780px) {
     flex-direction: column;
     gap: 20px;

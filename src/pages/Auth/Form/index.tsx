@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 import { Submit } from './style'
 import { Input } from '@/components/Input'
@@ -31,9 +30,12 @@ export function Form() {
   }
 
   async function onFormSubmit(data: IAuth) {
-    await auth.authUser(data)
-    if (auth.authorized) toast.success('Вы успешно авторизовались')
-    else toast.error('Неправильный логин или пароль')
+    toast.promise(
+      auth.authUser(data), {
+      pending:"Отправляем данные на сервер",
+      success:"Вы успешно авторизовались",
+      error:"Неправильный логин или пароль"
+    })
 
     reset({
       password: ''

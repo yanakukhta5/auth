@@ -1,15 +1,22 @@
 import { IUser } from './types'
 
 class Users {
+  private headers: {
+    'Content-Type': string
+    Authorization: string
+  }
+  constructor() {
+    this.headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Token ' + localStorage.getItem('token')
+    }
+  }
   async getUsers() {
     const response = await fetch(
       'https://test-assignment.emphasoft.com/api/v1/users/',
       {
         method: 'get',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Token ' + localStorage.getItem('token')
-        }
+        headers: { ...this.headers }
       }
     )
     return await response.json()
@@ -20,13 +27,10 @@ class Users {
       'https://test-assignment.emphasoft.com/api/v1/users/',
       {
         method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Token ' + localStorage.getItem('token')
-        },
-        body: JSON.stringify(obj)
+        headers: { ...this.headers }
       }
     )
+
     return await response.json()
   }
 
@@ -35,13 +39,11 @@ class Users {
       `https://test-assignment.emphasoft.com/api/v1/users/${id}`,
       {
         method: 'put',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Token ' + localStorage.getItem('token')
-        },
+        headers: { ...this.headers },
         body: JSON.stringify(obj)
       }
     )
+
     return await response.json()
   }
 }

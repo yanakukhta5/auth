@@ -115,20 +115,14 @@ export const Userform: React.FC<UserFormProps> = ({ setChange }) => {
               },
               validate: {
                 withNumbers: (value) => {
-                  if (
-                    !Boolean(
-                      value.split('').find((item) => item.match(/^[0-9]+$/))
-                    )
-                  )
+                  if (!value.match(/[0-9]/)) {
                     return 'В пароле должны быть цифры'
+                  }
                 },
                 withCapital: (value) => {
-                  if (
-                    !Boolean(
-                      value.split('').find((item) => item.match(/[A-Z]/))
-                    )
-                  )
+                  if (!value.match(/[A-Z]/)) {
                     return 'В пароле должны быть заглавные буквы'
+                  }
                 }
               }
             })}
